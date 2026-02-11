@@ -27,17 +27,17 @@ export default function Home() {
         </section>
 
         {posts.map((post, index) => {
-          const user = getUserById(post.userId)
+          const user = getUserById(post.authorId)
           const showAd = index === 1 && feedAds.length > 0
           return (
             <div key={post.id} className="space-y-4">
               <section className="rounded-lg border border-linkedin-border-gray bg-linkedin-white p-4 shadow-sm">
                 <div className="flex gap-3">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-linkedin-border-gray text-linkedin-text-gray font-semibold">
-                    {user?.name?.charAt(0) || '?'}
+                    {user ? (user.firstName?.charAt(0) || user.lastName?.charAt(0) || '?') : '?'}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-gray-900">{user?.name}</p>
+                    <p className="font-semibold text-gray-900">{user ? `${user.firstName} ${user.lastName}` : ''}</p>
                     <p className="text-xs text-linkedin-text-gray">{user?.headline}</p>
                     <p className="text-xs text-linkedin-text-gray">{formatRelativeTime(post.timestamp)}</p>
                   </div>
@@ -61,8 +61,8 @@ export default function Home() {
               {showAd && (
                 <section className="rounded-lg border border-linkedin-border-gray bg-linkedin-light-gray p-4">
                   <span className="text-xs font-medium uppercase tracking-wide text-linkedin-text-gray">Ad</span>
-                  <p className="mt-1 font-medium text-gray-900">{feedAds[0].title}</p>
-                  <p className="text-sm text-linkedin-text-gray">{feedAds[0].body}</p>
+                  <p className="mt-1 font-medium text-gray-900">{feedAds[0].content?.headline ?? feedAds[0].title}</p>
+                  <p className="text-sm text-linkedin-text-gray">{feedAds[0].content?.description ?? feedAds[0].body}</p>
                 </section>
               )}
             </div>

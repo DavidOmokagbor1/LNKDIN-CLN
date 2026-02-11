@@ -11,8 +11,8 @@ export default function AdStudio() {
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {ads.map((ad) => (
             <div key={ad.id} className="rounded-lg border border-linkedin-border-gray bg-linkedin-white p-4 shadow-sm">
-              <h2 className="font-semibold text-gray-900">{ad.title}</h2>
-              <p className="mt-1 text-sm text-linkedin-text-gray">{ad.body}</p>
+              <h2 className="font-semibold text-gray-900">{ad.content?.headline ?? ad.title}</h2>
+              <p className="mt-1 text-sm text-linkedin-text-gray">{ad.content?.description ?? ad.body}</p>
               <div className="mt-3 flex gap-4 text-xs text-linkedin-text-gray">
                 <span>Impressions: {formatCount(ad.impressions)}</span>
                 <span>Clicks: {formatCount(ad.clicks)}</span>

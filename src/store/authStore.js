@@ -1,14 +1,25 @@
 import { create } from 'zustand'
+import usersData from '@/data/users.json'
 
-export const useAuthStore = create((set) => ({
-  user: {
-    id: 'u1',
-    name: 'Jane Doe',
-    headline: 'Software Engineer at Tech Co',
-    avatar: null,
-    email: 'jane@example.com',
-  },
+export const useAuthStore = create((set, get) => ({
+  currentUser: usersData.find((u) => u.id === 'user-1') ?? null,
   isAuthenticated: true,
-  setUser: (user) => set({ user, isAuthenticated: !!user }),
-  logout: () => set({ user: null, isAuthenticated: false }),
+
+  login: (userId) => {
+    const user = usersData.find((u) => u.id === userId)
+    set({ currentUser: user ?? null, isAuthenticated: !!user })
+  },
+
+  logout: () => set({ currentUser: null, isAuthenticated: false }),
+
+  updateProfile: (data) => {
+    const { currentUser } = get()
+    if (!currentUser) return
+    set({
+      currentUser: {
+        ...currentUser,
+        ...data,
+      },
+    })
+  },
 }))
