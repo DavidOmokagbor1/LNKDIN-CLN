@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/store/authStore'
+import PremiumBadge from '@/components/profile/PremiumBadge'
 
 export default function Profile() {
   const { currentUser: user } = useAuthStore()
@@ -11,7 +12,10 @@ export default function Profile() {
               {user ? (user.firstName?.charAt(0) || user.lastName?.charAt(0) || '?') : '?'}
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{user ? `${user.firstName} ${user.lastName}` : ''}</h1>
+              <h1 className="flex items-center gap-2 text-2xl font-bold text-gray-900">
+                {user ? `${user.firstName} ${user.lastName}` : ''}
+                {user?.isPremium && <PremiumBadge size="lg" />}
+              </h1>
               <p className="text-linkedin-text-gray">{user?.headline}</p>
             </div>
           </div>

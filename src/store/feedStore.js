@@ -2,6 +2,8 @@ import { create } from 'zustand'
 import postsData from '@/data/posts.json'
 import usersData from '@/data/users.json'
 import { useAuthStore } from '@/store/authStore'
+import { useAdStore } from '@/store/adStore'
+import { getRelevantAdsForUser } from '@/utils/adTargeting'
 
 export const useFeedStore = create((set, get) => ({
   posts: postsData,
@@ -93,4 +95,18 @@ export const useFeedStore = create((set, get) => ({
   },
 
   getUserById: (userId) => get().users.find((u) => u.id === userId),
+
+  getRelevantAdsForCurrentUser: () => {
+    const { users } = get()
+    const currentUser = useAuthStore.getState().currentUser
+    const { ads, clicks, impressions } = useAdStore.getState()
+    if (!currentUser) return []
+    if (currentUser.isPremium === true) return []
+    const usersById = Object.fromEntries(users.map((u) => [u.id, u]))
+    return getRelevantAdsForUser(currentUser, ads, {
+      clicks,
+      impressions,
+      usersById,
+    })
+  },
 }))

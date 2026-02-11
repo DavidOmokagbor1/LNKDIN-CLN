@@ -8,6 +8,20 @@ A professional social network centered on verified identity, an algorithmic feed
 
 ---
 
+## Revenue Model: How LinkedIn Generates Money
+
+LinkedIn (and this clone) monetizes primarily through **ads and promotions**:
+
+- **Sponsored Content** — Companies pay to promote posts (hiring, brand awareness, events) into users’ feeds. Charged per impression (CPM) or per click (CPC).
+- **Job Ads** — Recruiters and employers pay to feature job listings, target by industry/location, and reach passive candidates.
+- **Sponsored InMail** — Paid messaging to prospects outside your network (Recruiter Lite/Premium).
+- **Premium Subscriptions** — LinkedIn Premium, Sales Navigator, Recruiter add subscription revenue on top of ad spend.
+- **Learning (Lynda)** — Course and certification upsells.
+
+In this app, the **Ad Studio** (`/ads`) and **feed ad slots** simulate this model: advertisers run campaigns, target audiences, and pay for impressions/clicks while the platform earns revenue.
+
+---
+
 ## Problem
 
 Professionals lack a centralized, "always-on" digital identity that separates their personal lives from their career growth. Traditional resumes are static and "dead" documents, making it difficult for recruiters to find active talent and for peers to share knowledge or opportunities in a trusted, high-signal environment.

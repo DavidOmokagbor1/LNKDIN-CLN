@@ -8,6 +8,11 @@ export default function AdStudio() {
       <div className="mx-auto max-w-4xl px-4">
         <h1 className="text-xl font-bold text-gray-900">Ad Studio</h1>
         <p className="mt-1 text-sm text-linkedin-text-gray">Manage campaigns and monetization.</p>
+        <div className="mt-4 rounded-lg border border-linkedin-primary/20 bg-linkedin-primary/5 p-4">
+          <p className="text-sm text-gray-700">
+            <strong>How the platform generates revenue:</strong> Like LinkedIn, we earn through <strong>ads and promotions</strong>. Advertisers pay to run sponsored posts, job ads, and campaigns in the feed. Revenue comes from impressions (CPM), clicks (CPC), and campaign spend. Ad Studio lets advertisers create campaigns, target audiences, and track performance—powering the platform&apos;s business model.
+          </p>
+        </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {ads.map((ad) => (
             <div key={ad.id} className="rounded-lg border border-linkedin-border-gray bg-linkedin-white p-4 shadow-sm">

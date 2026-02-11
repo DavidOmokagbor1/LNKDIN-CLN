@@ -22,4 +22,18 @@ export const useAuthStore = create((set, get) => ({
       },
     })
   },
+
+  upgradeToPremium: (months = 1) => {
+    const { currentUser } = get()
+    if (!currentUser) return
+    const expiresAt = new Date()
+    expiresAt.setMonth(expiresAt.getMonth() + months)
+    set({
+      currentUser: {
+        ...currentUser,
+        isPremium: true,
+        premiumExpiresAt: expiresAt.toISOString(),
+      },
+    })
+  },
 }))

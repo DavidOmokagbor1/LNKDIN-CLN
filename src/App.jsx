@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import NavBar from '@/components/navigation/NavBar'
 import Home from '@/pages/Home'
 import Profile from '@/pages/Profile'
+import Settings from '@/pages/Settings'
 import Network from '@/pages/Network'
 import Jobs from '@/pages/Jobs'
 import Messages from '@/pages/Messages'
@@ -16,6 +17,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/network" element={<Network />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/messages" element={<Messages />} />
