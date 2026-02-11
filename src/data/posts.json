@@ -1,0 +1,5 @@
+[
+  { "id": "p1", "userId": "u1", "content": "Excited to share a major project milestone. Grateful for the team! #growth", "timestamp": "2024-02-10T10:00:00Z", "likes": 42, "comments": 8 },
+  { "id": "p2", "userId": "u2", "content": "Key lesson: listen more than you pitch.", "timestamp": "2024-02-09T14:30:00Z", "likes": 128, "comments": 24 },
+  { "id": "p3", "userId": "u3", "content": "New blog: Getting started with React 18 and Vite.", "timestamp": "2024-02-08T09:15:00Z", "likes": 56, "comments": 12 }
+]

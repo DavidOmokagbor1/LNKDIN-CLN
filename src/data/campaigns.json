@@ -1,0 +1,4 @@
+[
+  { "id": "c1", "adId": "ad1", "name": "Q1 Awareness", "startDate": "2024-01-01", "endDate": "2024-03-31", "status": "active" },
+  { "id": "c2", "adId": "ad2", "name": "Recruitment Drive", "startDate": "2024-02-01", "endDate": "2024-02-28", "status": "active" }
+]

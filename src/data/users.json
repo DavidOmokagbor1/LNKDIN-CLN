@@ -1,0 +1,5 @@
+[
+  { "id": "u1", "name": "Jane Doe", "headline": "Software Engineer at Tech Co", "avatar": null, "connections": 500 },
+  { "id": "u2", "name": "John Smith", "headline": "Product Manager", "avatar": null, "connections": 1200 },
+  { "id": "u3", "name": "Alex Johnson", "headline": "Full Stack Developer", "avatar": null, "connections": 350 }
+]

@@ -1,0 +1,5 @@
+[
+  { "userId": "u1", "connectionId": "u2", "status": "connected" },
+  { "userId": "u1", "connectionId": "u3", "status": "connected" },
+  { "userId": "u2", "connectionId": "u1", "status": "connected" }
+]

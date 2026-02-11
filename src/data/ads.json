@@ -1,0 +1,4 @@
+[
+  { "id": "ad1", "advertiserId": "u2", "title": "Boost your career", "body": "Join 10,000+ professionals.", "targeting": { "locations": ["US"], "industries": ["Technology"] }, "budget": 500, "spent": 120, "status": "active", "clicks": 340, "impressions": 12000 },
+  { "id": "ad2", "advertiserId": "u1", "title": "Hiring: Senior React Developers", "body": "Remote-first. Great benefits.", "targeting": { "locations": ["US", "UK"] }, "budget": 1000, "spent": 800, "status": "active", "clicks": 890, "impressions": 45000 }
+]
