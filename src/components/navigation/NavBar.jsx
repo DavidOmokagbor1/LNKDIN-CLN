@@ -136,6 +136,12 @@ export default function NavBar() {
             </span>
             <span className="hidden lg:inline">Notifications</span>
           </NavLink>
+          {isAuthenticated && (
+            <NavLink to="/ads" className={navLinkClass} title="Ad Studio">
+              <LayoutDashboard className="h-6 w-6" strokeWidth={1.5} />
+              <span className="hidden lg:inline">Ad Studio</span>
+            </NavLink>
+          )}
 
           {/* Me – Profile dropdown */}
           <div className="relative" ref={profileRef}>
@@ -304,6 +310,18 @@ export default function NavBar() {
                     ) : null}
                   </NavLink>
                 ))}
+                {isAuthenticated && (
+                  <NavLink
+                    to="/ads"
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-3 text-linkedin-white ${isActive ? 'bg-linkedin-white/15 font-medium' : ''}`
+                    }
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <LayoutDashboard className="h-5 w-5" strokeWidth={1.5} />
+                    Ad Studio
+                  </NavLink>
+                )}
               </nav>
             </div>
           )}

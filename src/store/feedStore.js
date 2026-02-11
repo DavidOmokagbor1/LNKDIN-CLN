@@ -99,14 +99,34 @@ export const useFeedStore = create((set, get) => ({
   getRelevantAdsForCurrentUser: () => {
     const { users } = get()
     const currentUser = useAuthStore.getState().currentUser
-    const { ads, clicks, impressions } = useAdStore.getState()
+    const adStore = useAdStore.getState()
+    const { ads, clicks, impressions } = adStore
     if (!currentUser) return []
     if (currentUser.isPremium === true) return []
     const usersById = Object.fromEntries(users.map((u) => [u.id, u]))
-    return getRelevantAdsForUser(currentUser, ads, {
+    const list = getRelevantAdsForUser(currentUser, ads, {
       clicks,
       impressions,
       usersById,
+    })
+    return list.map((ad) => {
+      const test = adStore.getActiveTestForAd(ad?.id)
+      if (!test) return ad
+      const variant = adStore.selectVariantForTest(test.id)
+      if (!variant) return ad
+      const variantContent = test[`variant${variant}`] ?? {}
+      return {
+        ...ad,
+        abTestId: test.id,
+        abVariant: variant,
+        content: {
+          ...(ad?.content ?? {}),
+          headline: variantContent.headline ?? ad?.content?.headline,
+          imageUrl: variantContent.imageUrl ?? ad?.content?.imageUrl,
+          ctaText: variantContent.ctaText ?? ad?.content?.ctaText,
+          ctaUrl: variantContent.ctaUrl ?? ad?.content?.ctaUrl,
+        },
+      }
     })
   },
 }))

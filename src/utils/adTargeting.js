@@ -211,22 +211,29 @@ export function getRelevantAdsForUser(userProfile, allAds, options = {}) {
     return true
   })
 
+  const isTechAudience = userProfile?.industry?.toLowerCase() === 'technology'
   const scored = filtered.map((ad) => {
     const relevanceScore = calculateRelevanceScore(userProfile, ad, usersById)
     const bidAmount = getBidAmount(ad)
     const historicalCTR = getHistoricalCTR(ad)
-    const finalScore = relevanceScore * 0.4 + bidAmount * 0.3 + historicalCTR * 100 * 0.3
+    let finalScore = relevanceScore * 0.4 + bidAmount * 0.3 + historicalCTR * 100 * 0.3
+    if (isTechAudience && ad?.type === 'sponsored_video') {
+      finalScore += 15
+    }
     return { ad, relevanceScore, bidAmount, historicalCTR, finalScore }
   })
 
   const sorted = scored.sort((a, b) => b.finalScore - a.finalScore)
-  const top = sorted.slice(0, TOP_ADS_LIMIT).map((s) => s.ad)
-  const hasVideo = top.some((ad) => ad?.type === 'sponsored_video')
-  if (!hasVideo) {
-    const bestVideo = sorted.find((s) => s.ad?.type === 'sponsored_video')
-    if (bestVideo) {
+  let top = sorted.slice(0, TOP_ADS_LIMIT).map((s) => s.ad)
+  const videos = sorted.filter((s) => s.ad?.type === 'sponsored_video').map((s) => s.ad)
+  const videoCount = top.filter((ad) => ad?.type === 'sponsored_video').length
+  if (videoCount === 0 && videos.length) {
+    top = [...top.slice(0, -1), videos[0]]
+  } else if (isTechAudience && videoCount === 1 && videos.length >= 2) {
+    const notInTop = videos.find((v) => !top.some((a) => a?.id === v?.id))
+    if (notInTop) {
       const withoutLowest = top.slice(0, -1)
-      return [...withoutLowest, bestVideo.ad]
+      top = [...withoutLowest, notInTop]
     }
   }
   return top

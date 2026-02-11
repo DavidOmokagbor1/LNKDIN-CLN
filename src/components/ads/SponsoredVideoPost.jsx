@@ -1,15 +1,18 @@
 import { useEffect, useRef } from 'react'
 import { Heart, MessageCircle, Info, Play } from 'lucide-react'
 import { useFeedStore } from '@/store/feedStore'
+import { useAdStore } from '@/store/adStore'
 
 /**
  * SponsoredVideoPost - displays a promoted video ad in the feed.
  * Video autoplays muted when in view; user can tap to unmute and play with sound.
  * Tracks impression on mount, click/conversion when CTA is clicked.
+ * When ad is in an A/B test, records test metrics (impressions/clicks) per variant.
  */
 export default function SponsoredVideoPost({ ad, onImpression, onClick }) {
   const videoRef = useRef(null)
   const { getUserById } = useFeedStore()
+  const { recordTestMetric } = useAdStore()
   const advertiser = getUserById(ad?.advertiserId)
   const companyName = advertiser?.currentPosition?.company ?? advertiser?.headline?.split(' at ')[1] ?? (advertiser ? `${advertiser.firstName} ${advertiser.lastName}` : 'Sponsor')
   const logoUrl = advertiser?.profilePicture
@@ -24,11 +27,17 @@ export default function SponsoredVideoPost({ ad, onImpression, onClick }) {
   useEffect(() => {
     if (ad?.id && onImpression) {
       onImpression(ad.id)
+      if (ad.abTestId && ad.abVariant) {
+        recordTestMetric(ad.abTestId, ad.abVariant, 'impressions', 1)
+      }
     }
-  }, [ad?.id, onImpression])
+  }, [ad?.id, ad?.abTestId, ad?.abVariant, onImpression, recordTestMetric])
 
   const handleCtaClick = () => {
     if (onClick && ad?.id) onClick(ad.id)
+    if (ad?.abTestId && ad?.abVariant) {
+      recordTestMetric(ad.abTestId, ad.abVariant, 'clicks', 1)
+    }
     if (ctaUrl) window.open(ctaUrl, '_blank', 'noopener,noreferrer')
   }
 
